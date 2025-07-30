@@ -1,32 +1,29 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { Playfair_Display, Inter } from "next/font/google"
-import "./globals.css"
+import type React from "react";
+import type { Metadata } from "next";
+import { Inter, Playfair_Display } from "next/font/google";
+import "./globals.css";
 
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const playfair = Playfair_Display({
   subsets: ["latin"],
-  variable: "--font-serif",
-})
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
-})
+  variable: "--font-playfair",
+});
 
 export const metadata: Metadata = {
-  title: "Zeba Management - Elite Fashion Agency",
-  description: "Luxury fashion model management and scouting agency",
-    generator: 'v0.dev'
-}
+  title: "Elite Model Management",
+  description: "High-fashion model management agency",
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
-      <body className={`${playfair.variable} ${inter.variable} font-sans antialiased`}>{children}</body>
+      <body className={`${inter.variable} ${playfair.variable} antialiased`}>
+        {children}
+      </body>
     </html>
-  )
+  );
 }
