@@ -1,0 +1,6 @@
+const imagePositions = {
+  default: "object-[center_40%] object-[right_15%]",
+  models: "object-[center_40%]", 
+  scouting: "object-[center_50%] object-[left_50%]",
+  about: "object-[center_15%]",
+};

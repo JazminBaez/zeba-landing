@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "path";
 import sharp from "sharp";
 
-const inputDir = path.join(process.cwd(), "public", "images");
+const inputDir = path.join(process.cwd(), "public", "images", "main");
 const outputDir = path.join(inputDir, "webp");
 
 // Crear carpeta de salida si no existe

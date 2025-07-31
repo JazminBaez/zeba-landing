@@ -20,7 +20,9 @@ module.exports = {
     extend: {
       fontFamily: {
         serif: ["var(--font-serif)"],
-        sans: ["var(--font-sans)"],
+        sans: ["var(--font-sans)"], 
+        primary: ["var(--font-primary)"],
+        secondary: ["var(--font-secondary)"],
       },
       colors: {
         border: "hsl(var(--border))",
