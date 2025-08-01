@@ -3,15 +3,15 @@ import type { Metadata } from "next";
 import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ 
-  subsets: ["latin"], 
-  variable: "--font-secondary" // Cambié para que coincida con tu CSS
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-secondary", // Cambié para que coincida con tu CSS
 });
 
 const montserrat = Montserrat({
   subsets: ["latin"],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: "--font-poppins"
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-poppins",
 });
 
 export const metadata: Metadata = {
@@ -26,9 +26,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${montserrat.variable}`}>
-      <body className={inter.className}>
-        {children}
-      </body>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }
