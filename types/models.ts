@@ -14,4 +14,5 @@ export interface Model {
   stats: ModelStats;
 }
 
+// IMPORTANTE: Definir FilterType de manera consistente
 export type FilterType = "All" | "She/Her" | "He/Him";

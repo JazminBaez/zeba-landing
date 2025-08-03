@@ -1,11 +1,12 @@
 import React from "react";
-import { FilterType } from "../../types/models";
-import { FILTER_OPTIONS } from "../../constants/models";
+import { FilterType } from "../../types/models"; // Importar desde types
 
 interface ModelsFilterProps {
-  activeFilter: FilterType;
-  onFilterChange: (filter: FilterType) => void;
+  activeFilter: FilterType; // Usar FilterType, no string
+  onFilterChange: (filter: FilterType) => void; // Usar FilterType, no string
 }
+
+const FILTER_OPTIONS: FilterType[] = ["All", "She/Her", "He/Him"];
 
 export const ModelsFilter = ({ activeFilter, onFilterChange }: ModelsFilterProps) => {
   return (
