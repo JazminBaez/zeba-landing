@@ -2,17 +2,14 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation"; // Para App Router
-// import { useRouter } from "next/router"; // Para Pages Router
-import ModelDirectoryPage from './models/page'
 import { useImagePreloader } from "../hooks/useImagePreloader";
-import { useCopyToast } from "../hooks/useCopyToast";
 import { ImagePreloader } from "../components/ui/zeba-ui/imagePreloader";
 import { BackgroundImages } from "../components/ui/zeba-ui/backgroundImages";
 import { Navigation } from "../components/navigation/navigation";
 import { MainContent } from "../components/menu/mainContent";
 import { MobileLogo } from "../components/common/zeba-mobile-logo";
 import { ContactModal } from "../components/contact/contactModal";
+import { useRouter } from "next/navigation";
 
 export default function EliteFashionLanding() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
@@ -20,21 +17,6 @@ export default function EliteFashionLanding() {
   const imagesLoaded = useImagePreloader();
   const router = useRouter();
 
-  const openContactModal = () => {
-    console.log("Abriendo modal");
-    setIsContactModalOpen(true);
-    console.log("Estado después:", true);
-  };
-
-  const closeContactModal = () => {
-    setIsContactModalOpen(false);
-  };
-
-  const handleCategoryHover = (category: string) => {
-    setCurrentBackground(category);
-  };
-
-  // NUEVA FUNCIÓN: Manejar navegación
   const handleNavigateToSection = (section: string) => {
     console.log(`Navegando a: ${section}`);
     
@@ -52,6 +34,19 @@ export default function EliteFashionLanding() {
         console.log('Sección no reconocida');
     }
   };
+  const openContactModal = () => {
+    console.log("Abriendo modal");
+    setIsContactModalOpen(true);
+    console.log("Estado después:", true);
+  };
+
+  const closeContactModal = () => {
+    setIsContactModalOpen(false);
+  };
+
+  const handleCategoryHover = (category: string) => {
+    setCurrentBackground(category);
+  };
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden">
@@ -60,7 +55,7 @@ export default function EliteFashionLanding() {
       <Navigation onContactClick={openContactModal} />
       <MainContent 
         onCategoryHover={handleCategoryHover} 
-        onCategoryClick={handleNavigateToSection}  // NUEVO PROP
+        onCategoryClick={handleNavigateToSection}
         imagesLoaded={imagesLoaded} 
       />
       <MobileLogo />
