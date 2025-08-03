@@ -2,7 +2,11 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation"; // Para App Router
+// import { useRouter } from "next/router"; // Para Pages Router
+import ModelDirectoryPage from './models/page'
 import { useImagePreloader } from "../hooks/useImagePreloader";
+import { useCopyToast } from "../hooks/useCopyToast";
 import { ImagePreloader } from "../components/ui/zeba-ui/imagePreloader";
 import { BackgroundImages } from "../components/ui/zeba-ui/backgroundImages";
 import { Navigation } from "../components/navigation/navigation";
@@ -14,6 +18,7 @@ export default function EliteFashionLanding() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [currentBackground, setCurrentBackground] = useState("default");
   const imagesLoaded = useImagePreloader();
+  const router = useRouter();
 
   const openContactModal = () => {
     console.log("Abriendo modal");
@@ -29,6 +34,25 @@ export default function EliteFashionLanding() {
     setCurrentBackground(category);
   };
 
+  // NUEVA FUNCIÓN: Manejar navegación
+  const handleNavigateToSection = (section: string) => {
+    console.log(`Navegando a: ${section}`);
+    
+    switch(section) {
+      case 'models':
+        router.push('/models');
+        break;
+      case 'scouting':
+        router.push('/scouting');
+        break;
+      case 'about':
+        router.push('/about');
+        break;
+      default:
+        console.log('Sección no reconocida');
+    }
+  };
+
   return (
     <div className="relative min-h-screen w-full overflow-hidden">
       <ImagePreloader />
@@ -36,6 +60,7 @@ export default function EliteFashionLanding() {
       <Navigation onContactClick={openContactModal} />
       <MainContent 
         onCategoryHover={handleCategoryHover} 
+        onCategoryClick={handleNavigateToSection}  // NUEVO PROP
         imagesLoaded={imagesLoaded} 
       />
       <MobileLogo />
