@@ -1,12 +1,15 @@
 import { supabase } from '../lib/supabase/client';
-import { Model, ModelWithDetails } from '../types/supabase';
+import { Model } from '../types/supabase';
 
 export class ModelsService {
-  // Obtener todos los modelos
+  // Obtener todos los modelos CON sus medidas
   static async getAllModels(): Promise<Model[]> {
     const { data, error } = await supabase
       .from('models')
-      .select('*')
+      .select(`
+        *,
+        measurements:model_measurements(*)
+      `)
       .order('created_at', { ascending: false });
 
     if (error) {
@@ -14,17 +17,26 @@ export class ModelsService {
       throw error;
     }
 
-    return data || [];
+    // Transformar para que measurements sea un objeto en lugar de array
+    return (data || []).map(model => ({
+      ...model,
+      measurements: model.measurements?.[0] || null
+    }));
   }
 
-  // Obtener modelos con filtros
+  // Obtener modelos filtrados CON medidas
   static async getFilteredModels(filters: {
     category?: string;
     gender?: string;
     featured?: boolean;
     availability?: boolean;
   }): Promise<Model[]> {
-    let query = supabase.from('models').select('*');
+    let query = supabase
+      .from('models')
+      .select(`
+        *,
+        measurements:model_measurements(*)
+      `);
 
     if (filters.category && filters.category !== 'all') {
       query = query.eq('category', filters.category);
@@ -49,59 +61,10 @@ export class ModelsService {
       throw error;
     }
 
-    return data || [];
-  }
-
-  // Obtener modelo específico con todos sus detalles
-  static async getModelById(id: string): Promise<ModelWithDetails | null> {
-    const { data: model, error: modelError } = await supabase
-      .from('models')
-      .select(`
-        *,
-        measurements:model_measurements(*),
-        images:model_images(*),
-        experiences:model_experiences(*)
-      `)
-      .eq('id', id)
-      .single();
-
-    if (modelError) {
-      console.error('Error fetching model:', modelError);
-      throw modelError;
-    }
-
-    return model;
-  }
-
-  // Obtener modelos destacados
-  static async getFeaturedModels(): Promise<Model[]> {
-    const { data, error } = await supabase
-      .from('models')
-      .select('*')
-      .eq('featured', true)
-      .order('created_at', { ascending: false });
-
-    if (error) {
-      console.error('Error fetching featured models:', error);
-      throw error;
-    }
-
-    return data || [];
-  }
-
-  // Buscar modelos por nombre
-  static async searchModels(searchTerm: string): Promise<Model[]> {
-    const { data, error } = await supabase
-      .from('models')
-      .select('*')
-      .ilike('name', `%${searchTerm}%`)
-      .order('created_at', { ascending: false });
-
-    if (error) {
-      console.error('Error searching models:', error);
-      throw error;
-    }
-
-    return data || [];
+    // Transformar measurements
+    return (data || []).map(model => ({
+      ...model,
+      measurements: model.measurements?.[0] || null
+    }));
   }
 }

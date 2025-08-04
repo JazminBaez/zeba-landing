@@ -12,6 +12,8 @@ export interface Model {
   cover_image_url: string | null;
   created_at: string;
   updated_at: string;
+  // Agregar medidas como parte del modelo
+  measurements?: ModelMeasurements;
 }
 
 export interface ModelMeasurements {
