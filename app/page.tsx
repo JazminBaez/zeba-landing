@@ -1,3 +1,4 @@
+// app/page.tsx
 import ZebaLanding from './zebaLanding'
 // o la ruta donde tengas el componente
 
