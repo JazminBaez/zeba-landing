@@ -6,8 +6,8 @@ export const backgroundImages = {
 };
 
 export const imagePositions = {
-  default: "object-[center_5%]",
+  default: "object-[center_5%]",// Cambiado de "object-[center_5%]"
   models: "object-[center_5%]",
-  scouting: "object-[center_40%]object-[right_20%]",
+  scouting: "object-[center]", // Corregido con un espacio
   about: "object-[center_50%]",
 };
